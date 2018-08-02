@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LitM</title>
+    <link rel="icon" type="image/png" href="/public/assets/img/logo.png">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+    <script src="/public/serial/js/jquery.min.js"></script>
+
+   <script src="../../public/serial/js/serial.js"></script>
+    
+
+ <!-- TREE DEPENDANCIES -->
+    <script src="../../public/serial/js/bootstrap-treeview.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/serial/css/bootstrap-treeview.min.css">
+
+
+
+    <!-- BOOTSTRAP STYLES-->
+    <script src="../../public/assets_control/js/sweetalert.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../../public/assets_control/css/sweetalert.css">
+    <link href="../../public/assets_control/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="../../public/assets_control/css/font-awesome.css" rel="stylesheet" />
+       <!--CUSTOM BASIC STYLES-->
+    <link href="../../public/assets_control/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="../../public/assets_control/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+    <script src="/public/serial/js/popper.js"></script>
+    <script src="/public/serial/js/bootstrap.min.js"></script>
+
+    <!-- ON/OFF BS button -->
+    <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
+<link rel="stylesheet" type="text/css" href="/public/serial/css/bootstrap-toggle.min.css">
+<script src="/public/serial/js/bootstrap-toggle.min.js"></script>
+
+
+
+    <style>
+             @font-face {
+    font-family: 'OpenSans-Light';
+    src: url('/public/serial/font/OpenSans-Light.ttf');
+}
+       /* BS INFO callout "Select the light from the left side tree"*/
+       .bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    }
+
+    .bs-callout h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .bs-callout p:last-child {
+        margin-bottom: 0;
+    }
+    .bs-callout code {
+        border-radius: 3px;
+    }
+    .bs-callout+.bs-callout {
+        margin-top: -5px;
+    }
+    .bs-callout-info {
+        border-left-color: #00b56c;
+    }
+    .bs-callout-info h4 {
+        color: green;
+    }
+       
+        
+        .sweet-alert {
+        box-sizing : border-box;
+        max-height : 100% !important;
+        overflow-y : auto !important;
+        padding : 0 17px 17px !important;
+        width : 512px;
+    }
+    .sweet-alert:before {
+        content : "";
+        display : block;
+        height : 17px;
+        width : 0;
+    }
+
+/* tree */
+    .list-group-item{
+        background-color: #414141;
+        color: white;
+        border:  1px solid #00b56c;
+    }
+
+    .list-group-item:hover { 
+    color: black;
+}
+
+/*slider for dimming and styles*/
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #00b56c;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #00b56c;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body style="background-color:white;">
+
+<nav class="navbar navbar-default navbar-cls-top overlay_header" role="navigation" style="margin-bottom: 0;text-align: center;background-color: #E71A3B;">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a href="{{url "Light.LightControl"}}">
+        <img src="../../public/assets_control/img/logo.jpg" style="height:75px;width:150px">
+        </a>
+        </div>
+        <p></p>
+        <span style="vertical-align: -webkit-baseline-middle;font-size:200%;color:white"><h1 style="display: inline;">Havells Professional Light Management System</span>
+
+<div class="header-right">
+    <table style="font-size: 10px">
+        <tr>
+            <td>Welcome &nbsp;<a href="#" style="color: white" id="uid"></a></td>
+            <td rowspan="2"><span style="float: right;"> <a href="#" id="signout" class="btn btn-danger" title="Logout"><i class="fa fa-sign-out fa-2x"></i></a></span></td>
+        </tr>
+        <tr>
+            <td>Contact Us: +91-80-28390897<span style="font-size: 13px">/</span>8&nbsp;</td>
+        </tr>
+    </table>
+
+        </div>
+        </nav>
+            <!-- /. NAV TOP  -->
+        <div class="overlay">
+        <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+	        <p style="margin: 0 0 10px;"></p>
+      
+            <li>
+                 <a class="active-menu" href="{{url "Light.LightControl"}}"><i class="fa fa-lightbulb-o"></i>LITM Control</a>
+            </li>
+            <li>
+                <a href="{{url "Light.LightMonitor"}}"><i class="	fa fa-calendar"></i>DASHBOARD</a>
+            </li>
+            
+</ul>
+</div>
+
+</nav>
+</div>
+<div id="page-wrapper" style="background-color:white;">
+<div id="page-inner" >
+      <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line" style="font-weight: lighter;text-transform:uppercase;">LitM Control</h1>
+                    </div>
+                </div>
+
+
+<div class="row content">
+  <div class="col-sm-3 sidenav"  style="position:relative; " >
+      <div id="tree"></div>
+  </div>
+  
+<!--   <div class="col-sm-1"></div>
+ --> 
+  <div class="col-sm-7 text-left"> 
+     <div class="panel panel-primary" style="border-color:#00b56c;">
+     <div class="panel-heading" style="background-color:#00b56c; border-color: #00b56c;" >Remote Control</div>
+     <div class="panel-body" style="background-color:#414141; color:white;" >
+                           
+    <div class="bs-callout bs-callout-info" id="infoMsg">
+          <h4>Info</h4>
+            Please select the light from side tree
+        </div>
+    <div id= "sideInfo" style="display: none;"> 
+    <!-- <div class="row">
+         <div class="col-sm-5"></div>
+         <div class="col-sm-2">
+         <div class="form-group" >
+         <label class="control-label">Port</label>
+          <input class="form-control" type="text" name="port" id="port" required/>
+          
+        </div>
+        </div>
+        <div class="col-sm-5"></div>
+    </div> -->
+     
+      <div class="row">
+            <div class="col-sm-4"></div>
+         <div class="col-sm-4" style="text-align: center;">
+        <div class="form-group" >
+         <label class="control-label">Selected Light</label>
+          <input class="form-control" type="text" placeholder="select from tree" readonly="readonly" name="level" id="level" style="text-align: center;" required />
+        </div>
+        </div>
+        <div class="col-sm-4" style="text-align: center; display:none;">
+            <div class="form-group" >
+             <label class="control-label">Switch To LoRa</label>
+             <button type="submit" class="btn btn-primary center-block" id="switchToLora" >Switch</button>
+            </div>
+            </div>
+<br>
+<br>
+        
+
+        <!-- <div class="col-sm-4">
+            <div class="form-group">
+         <label class="control-label">Operation</label>
+         <select class="form-control" name = "operation" id = "operation" required>
+                    <option value="" selected disabled>Operation</option>
+                    <option value="set_power"> Set Power </option> 
+                    <option value="set_dim"> Set Intensity </option> 
+                    <option value="set_cct"> Set CCT </option> 
+          </select>
+      </div>
+        </div> -->
+
+
+         <!-- <div class="col-sm-4" id="set_power" style="display: none; padding-left: 30px" >
+             <label class="control-label">Set Power</label>
+             <div>
+                <input id="power" type="checkbox" data-toggle="toggle" value="true" required>
+             </div>
+          </div> -->
+
+
+         <div class="col-sm-4" id="set_dim11"  style="display: none;">
+             <label class="control-label">Set Intensitys</label>
+             <div class="slidecontainer" style="margin-top: 5px">
+              <input type="range" min="0" max="100" value="100" class="slider" id="myRange11">
+              <p style="text-align: center;"> <span id="sliderValue11"></span></p>
+            </div>
+         </div> 
+
+         <div class="col-sm-4" id="set_cct11" style="display: none; padding-left: 30px" >
+            <label class="control-label">Set CCTs</label>
+            <div class="slidecontainer" style="margin-top: 5px">
+                <input type="range" min="0" max="100" value="0" class="slider" id="cct11">
+                <p style="text-align: center;"> <span id="sliderValue111"></span></p>
+              </div>
+         </div>
+
+         </div>
+
+       <br>
+         <!-- <div class="row">
+                <div class="col-sm-4"></div>
+         <div class="col-sm-4" id="set_power" style="text-align: center;">
+                <label class="control-label">Set Power</label>
+                <div>
+                   <input id="power" type="checkbox" data-toggle="toggle" value="true" required>
+                </div>
+             </div>
+             </div> -->
+             <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                            <div class="col-sm-6"> 
+                    <button type="submit" class="btn btn-success center-block" id = "onButton">ON</button>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-danger center-block" id = "offButton">OFF</button>
+                </div>
+                </div>
+<br>
+<br>
+         <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6" id="set_dim" style="text-align: center;">
+                        <label class="control-label">Set Intensity</label>
+                        <div class="slidecontainer" style="margin-top: 5px">
+                         <input type="range" min="0" max="100" value="100" class="slider" id="myRange">
+                         <p style="text-align: center;"> <span id="sliderValue"></span></p>
+                       </div>
+                    </div> 
+                    </div>
+<br>
+                    <div class="row">
+                            <div class="col-sm-3"></div>
+                    <div class="col-sm-6" id="set_cct" style="text-align: center;">
+                            <label class="control-label">Set CCT</label>
+                            <div class="slidecontainer" style="margin-top: 5px">
+                                <input type="range" min="0" max="100" value="0" class="slider" id="cct">
+                                <p style="text-align: center;"> <span id="sliderValue1"></span></p>
+                              </div>
+                         </div>
+                         </div>
+         </div>
+
+
+ <div class="row" style="margin-top: 30px">
+       <!--      <div class="form-group">
+            <input type="submit" class="btn btn-info center-block" id = "set" value="SET">
+        </div> -->
+
+    <div class="form-group">
+             <button type="submit" class="btn btn-primary center-block" id = "set" style="display: none;">SET</button>
+     </div>
+
+    </div>
+
+      
+
+    
+
+ </div>
+
+
+     
+  </div>
+</div>
+</div>
+<!-- <div class="col-sm-1"></div> -->
+
+   
+</div>            
+</div>
+</div>
+</body>
+</html>

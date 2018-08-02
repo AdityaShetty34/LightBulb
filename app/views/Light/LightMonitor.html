@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/assets/img/logo.png">
+    <link rel="icon" type="image/png" href="/public/assets/img/logo.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="public/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="public/assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<style>
+    li { cursor: pointer; }
+</style>
+<body>
+	   <div style="height:60px;background:#32383d;border-bottom:1px solid #000;border:1px solid #000;">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">	       
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+			<div class="navbar-brand" style="background:#2d3237;margin-top:0px;width:75px;height:59px;padding-top:10px;padding-left:20px;">
+                        <img src="public/assets/img/logo.png" width="40px" height="38px"></img>
+        	        </div>
+                        <a class="navbar-brand" href="#" style="color:#fff;font-size:16px;"><b>Smart Light <span style="color:#ff3801;">Dashboard</span></b><span style="font-size:14px;">&nbsp;&nbsp;Real Time Lights Monitoring</span></a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <form>
+                            <div class="input-group no-border">
+                                <input type="text" value="" class="form-control" placeholder="Search...">
+                                <span class="input-group-addon">
+                                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                                </span>
+                            </div>
+                        </form>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/historical">
+                                    <i class="fa fa-table"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">historical</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">
+                                    <i class="fa fa-home"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">home</span>
+                                    </p>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+</div>       
+        <div class="main-panel"  style="position:unset!important;float:left!important;background:#33353e!important;overflow:hidden;box-sizing:border-box;border:1px solid #000;border-top:none;">
+            <!-- End Navbar -->                
+            <div style="width:62%;float:left;box-sizing:border-box;">
+    <div class="row">
+        <div class="col-md-7">
+	    <div class="card-header" style="border:none!important;background:none!important;">
+                <h5 class="card-category"> <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated</h5>
+
+            <div>
+                <div class="row">
+                    <div class="col-md-10">
+                <h5 class="card-title" style="color:#fff;margin-top:0px;">Power Consumption</h5>
+                    </div>
+                        <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()' style="float:right;margin-top:0px;">
+                                       <i class="fa fa-play"></i>
+                                     </button>               
+                </div>     
+            </div>
+               
+            </div>
+           
+
+			<div class= "row">
+			  <div class="col-md-12">
+
+                <canvas id="consumedPowerChart"></canvas>
+                        
+                </div>		
+                 
+
+                <!-- <div class="col-md-4" style="text-align: center">
+                    <br><br>
+                        <p id="luxVal" style=" text-align: center; color: #fff;font-size: xx-large; margin: 0;">0</p>
+                           <canvas id="bar-chart" height="20"></canvas>
+                           <br>
+                           <h5 class="card-title" style="color:#fff;margin-top:0px;">Lux</h5>
+                           
+                    </div> -->
+                    
+		</div>
+
+	
+        </div>
+            <div class="col-md-5">
+
+
+	    <div class="card-header" style="border:none!important;background:none!important;">
+                <div style="float:left;">
+                <h5 class="card-category"> <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated</h5>
+                <h5 class="card-title" style="color:#fff;margin-top:0px;">Total Power</h5>
+                </div>
+            </div>
+            <div class="panel-header" style="clear:both;background:#33353e!important;padding:10px;text-align:center;">		 
+                <canvas id="myGaugeChart" ></canvas>	 
+            </div>
+<div style="text-align: center; position:relative; margin-top:-20%;">
+<p id="totalPowerVal" style="/* text-align: center; */color: #fff;font-size: xx-large; margin: 0;">0</p>
+<p id="totalPowerUnit" style="/* text-align: center; */color: #fff;font-size: large; margin: 0;/* z-index: 10; */">W</p></div>        
+</div>
+    </div>
+<br>
+<br>
+<!-- For dual chart -->
+<div style="margin-left: 20px;">
+
+                <h5 class="card-title" style="color:#fff;margin-top:0px;">Power & CCT</h5>
+         </div>
+         
+    <div class="row">
+        <div class="col-md-3">
+            <br><br>
+                <ul style="list-style-type:square; color: wheat;">
+
+                        <li>
+                            <p id="0" onclick="getDualOf()">All Lights</p>
+                        </li>
+
+                        <!-- <li style="margin-left: 10px">
+                                <p id="o1">Street 1</p>
+                            </li> -->
+
+                        <li style="margin-left: 20px">
+                            <p id="1" onclick="getDual1()">Light 1</p>
+                        </li>
+                        <li style="margin-left: 20px">
+                            <p id="2" onclick="getDual2()">Light 2</p>
+                        </li>
+
+                        <!-- <li style="margin-left: 10px">
+                                <p id="o2">Office 2</p>
+                            </li>
+
+                        <li style="margin-left: 20px">
+                            <p id="3" onclick="getDual3()">Light 3</p>
+                        </li>
+                        <li style="margin-left: 20px">
+                            <p id="4" onclick="getDual4()">Light 4</p>
+                        </li> -->
+                       
+                </ul>
+        </div>
+
+        <div class="col-md-8" id="of" >
+                <canvas id="dualChartOf"></canvas>
+                  <h6 class="card-title" style="color:#fff;margin-top:0px;text-align: center;">All Lights</h6>
+            </div>
+
+        <div class="col-md-8" id="of1" style="display: none">
+              <canvas id="dualChart1"></canvas>
+                <h6 class="card-title" style="color:#fff;margin-top:0px;text-align: center;">Street 1</h6>
+          </div>
+        
+        <div class="col-md-8" id="of2" style="display: none">
+              <canvas id="dualChart2"></canvas>
+                <h6 class="card-title" style="color:#fff;margin-top:0px;text-align: center;">Street 2</h6>
+        </div>
+        <!-- <div class="col-md-7" id="of3" style="display: none">
+            <canvas id="dualChart3"></canvas>
+              <h6 class="card-title" style="color:#fff;margin-top:0px;text-align: center;">Light 3</h6>
+      </div>
+      <div class="col-md-7" id="of4" style="display: none">
+            <canvas id="dualChart4"></canvas>
+              <h6 class="card-title" style="color:#fff;margin-top:0px;text-align: center;">Light 4</h6>
+      </div> -->
+    </div>
+
+            </div>
+            <div style="width:36%;float:left;box-sizing:border-box;background:url(public/assets/img/partition.png) repeat-y left 10px;">
+	    <div class="card-header" style="border:none!important;background:none!important;">
+                <div style="float:left;">
+                <h5 class="card-category"> <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated</h5>
+                <h5 class="card-title" style="color:#fff;margin-top:0px;">Consumed Power</h5>
+                </div>
+               
+            </div>
+            <div class="panel-header" style="clear:both;background:transparent!important;padding:10px;">
+               <canvas id="projectedPowerChart"></canvas>
+            </div>
+	    <div class="card-header" style="border:none!important;background:none!important;">
+
+<!-- <div class="row">
+<div class="col-md-6">
+   <h5 class="card-title" style="color:#fff;margin-top:0px;margin-left:42px;">Occupancy</h5>
+	
+	<ul style='list-style-type:none;margin:auto; margin-left:33%; padding:0; width:100%;height:50px;'>
+		
+		<li style='float:left;width:35%;line-height:24px;'><i class='fas fa-street-view fa-3x' id = "l1" style='color:#d3d3d3;'></i><br><span style='color:#9ba9ac;margin-left:10%'>PIR</span></span></li>
+
+		<li style='float:left;width:30%;line-height:24px;display:none;'><i class='fas fa-street-view fa-3x' id = "l3" style='color:#d3d3d3;'></i><br><span style='color:#9ba9ac;margin-left:10%'>L3</span></li>
+   </ul>
+</div>
+
+<div class="col-md-6">
+   <h5 class="card-title" style="color:#fff;margin-top:0px;margin-left:37%;">Switch</h5>
+
+	<ul style='list-style-type:none;margin:auto; margin-left:42%; padding:0; width:100%;height:50px;'>
+<li style='float:left;width:35%;line-height:24px;'><i class='fa fa-toggle-on fa-3x' id = "l2" style='color:#8bc34a;'></i><br><span style='color:#9ba9ac;margin-left:-3%'>ON/OFF</span></li>
+   </ul>
+</div>
+</div> -->
+<br>
+
+<div style="float:left;">
+                <h5 class="card-title" style="color:#fff;margin-top:0px;">Power Saving View</h5>
+                </div>
+           
+            </div>
+            <div class="panel-header" style="clear:both;background:transparent!important; padding:0;">
+               
+        <div style="position: relative; z-index: 0; width: 100%; height: 321px; margin-bottom: 25px;">
+            <canvas id="energySavingChart" style="width: 471px; height: 235px; position: absolute;"></canvas>
+
+            <div class="overlay" style="text-align:center;z-index: 1;overflow: hidden;position: absolute;background-color: transparent;width: 100%;height: 100%;margin-top: 20%;">
+             <p id="powerSavingValue" style="color: #fff;font-size: xx-large;z-index: 10; margin: 0;">0</p>
+             <p id="powerSavingUnit" style="color: #fff;font-size:large;z-index: 10;">%</p>
+            </div>
+    
+        </div>          
+                    
+
+<div id='energyLegend' class='chartjsLegend'></div> 
+            </div>
+            </div>
+            <div style="clear:both">
+            <footer class="footer" style="color:#fff; padding :0;">
+                <div class="container-fluid">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Smart Light
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="copyright">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>, Designed by
+                        <a href="https://www.havells.com" target="_blank">Havells</a>
+                    </div>
+                </div>
+            </footer>
+            </div>
+            </div>
+        </div>
+</body>
+<!--   Core JS Files   -->
+<script src="public/assets/js/core/jquery.min.js"></script>
+<script src="public/assets/js/core/popper.min.js"></script>
+<script src="public/assets/js/core/bootstrap.min.js"></script>
+<!-- <script src="public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script> -->
+<!--  Google Maps Plugin    -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+<!-- Chart JS -->
+<script src="public/assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="public/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="public/assets/js/now-ui-dashboard.js?v=1.0.1"></script>
+<!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+<script src="public/assets/demo/demo.js"></script>
+<script src="public/assets/demo/jquery.gauge.js"></script>
+
+<!-- play/resume button -->
+<script src="public/assets/js/plugins/d3.min.js"></script>
+
+<script>
+    // $(document).ready(function() {
+    //     // Javascript method's body can be found in assets/js/demos.js
+    //     demo.initDashboardPageCharts();
+	
+    // });
+</script>
+
+</html>

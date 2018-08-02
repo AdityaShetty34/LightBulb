@@ -1,0 +1,33 @@
+# Routes Config
+#
+# This file defines all application routes (Higher priority routes first)
+#
+
+module:testrunner
+# module:jobs
+
+
+GET     /                                           Light.LightControl
+GET     /monitor                                    Light.LightMonitor
+GET     /historical                                 Light.Historical
+
+GET    /v1/litm/gateways/:gatewayID                 Register.CheckIfRegistered
+GET    /v1/litm/gateways/:gatewayID/devices         Register.GetDeviceList
+
+POST    /v1/litm/lights                             Light.SetPower
+POST    /v1/litm/lights/:lightID                            Light.SetPowerFromNB
+GET     /v1/litm/lightStatus/:lightID                          Light.GetLightStatus
+GET     /v1/litm/lightData                          Light.GetLightData
+POST    /v1/litm/lights/:lightID/historicalLightData         Light.GetHistoricalData
+POST    /v1/litm/lights/:lightID/historicalLightDataForCSV         Light.GetHistoricalDataForCSV
+
+
+
+# Ignore favicon requests
+GET     /favicon.ico                                404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                           Static.Serve("public")
+
+# Catch all
+*       /:controller/:action                        :controller.:action
